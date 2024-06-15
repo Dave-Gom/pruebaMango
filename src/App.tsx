@@ -1,14 +1,19 @@
-import React from 'react';
-import {Text, View} from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import {NavigationContainer} from '@react-navigation/native';
+import React, {useLayoutEffect} from 'react';
+import AppRouter from './router/AppRouter';
+import ThemeProvider from './theme/ThemeProvider';
 
 const App = () => {
+  useLayoutEffect(() => {
+    return () => {};
+  }, []);
+
   return (
-    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <Text>hola</Text>
-      <Text style={{fontFamily: 'Poppins-Regular'}}>hola</Text>
-      <Icon name="font" size={30} color="#900" />
-    </View>
+    <ThemeProvider>
+      <NavigationContainer>
+        <AppRouter />
+      </NavigationContainer>
+    </ThemeProvider>
   );
 };
 
