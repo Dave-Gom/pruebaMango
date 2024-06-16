@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
+import { Text, useTheme } from 'react-native-paper';
 import ChipOptionSelector from '../../components/ChipOptionSelector';
 import LottieViewer from '../../components/LottieViewer';
 import ErrorCard from '../../components/cards/ErrorCard';
@@ -21,15 +22,25 @@ const Categorias: CatetoriaOption[] = [
 ];
 
 export interface PorCategoriaProps {
-  showMore: () => void;
+  limit?: number;
+  showMore?: (cat: CategoriesEnum) => void;
   refreshing: boolean;
   setRefreshing: (value: boolean) => void;
   showInfo: (articulo: Article) => void;
+  categoriaInicial?: CategoriesEnum;
 }
 
-const PorCategoria = ({ refreshing, setRefreshing, showInfo }: PorCategoriaProps) => {
-  const [selectedCategorie, setSelectedCategorie] = useState<CategoriesEnum>(CategoriesEnum.BUSINESS);
-  const { loadData, error, loading, articles } = useNewsApi(() => setRefreshing(false));
+const PorCategoria = ({
+  refreshing,
+  setRefreshing,
+  showInfo,
+  limit,
+  showMore,
+  categoriaInicial = CategoriesEnum.BUSINESS,
+}: PorCategoriaProps) => {
+  const [selectedCategorie, setSelectedCategorie] = useState<CategoriesEnum>(categoriaInicial);
+  const { loadData, loading, articles } = useNewsApi(() => setRefreshing(false));
+  const { colors } = useTheme();
 
   useEffect(() => {
     loadData(selectedCategorie);
@@ -67,7 +78,7 @@ const PorCategoria = ({ refreshing, setRefreshing, showInfo }: PorCategoriaProps
       />
       <FlatList
         scrollEnabled={false}
-        data={articles.slice(0, 10)}
+        data={limit ? articles.slice(0, limit) : articles}
         style={{ paddingHorizontal: 24, paddingVertical: 10 }}
         renderItem={({ item, index }) => (
           <NewsCard
@@ -89,6 +100,18 @@ const PorCategoria = ({ refreshing, setRefreshing, showInfo }: PorCategoriaProps
         )}
         ItemSeparatorComponent={() => <View style={styles.separator} />}
       />
+      {limit && showMore && articles.length > limit && (
+        <View style={styles.verMas}>
+          <View>
+            <Text
+              style={[styles.textButtonStyles, { backgroundColor: colors.primary, color: colors.background }]}
+              onPress={() => showMore(selectedCategorie)}
+            >
+              Ver más
+            </Text>
+          </View>
+        </View>
+      )}
     </View>
   );
 };
@@ -114,5 +137,5 @@ const styles = StyleSheet.create({
     marginHorizontal: 24,
   },
   separator: { width: '100%', height: 10 },
-  verMas: { flexDirection: 'row', marginTop: 4, justifyContent: 'space-between' },
+  verMas: { flexDirection: 'row-reverse', marginTop: 4, justifyContent: 'space-between', marginBottom: 10 },
 });

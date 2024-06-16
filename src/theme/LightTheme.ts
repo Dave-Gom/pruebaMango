@@ -1,5 +1,5 @@
-import {MD3LightTheme, MD3Theme, configureFonts} from 'react-native-paper';
-import {PoppinsEnum} from '../types/enums/fonts/PoppinsEnum';
+import { MD3LightTheme, MD3Theme, configureFonts } from 'react-native-paper';
+import { PoppinsEnum } from '../types/enums/fonts/PoppinsEnum';
 
 const LightTheme: MD3Theme = {
   ...MD3LightTheme,
@@ -125,4 +125,4 @@ const LightTheme: MD3Theme = {
   }),
 };
 
-export {LightTheme};
+export { LightTheme };
