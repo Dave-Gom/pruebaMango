@@ -90,7 +90,7 @@ const LatesNews = ({ title, showMore, refreshing, setRefreshing, showInfo }: Lat
             )}
             ListEmptyComponent={() => (
               <ErrorCard
-                message="No hay torneos en desarrollo"
+                message="No se ha podido realizar la carga"
                 lottieSource={require('../../../assets/lotties/noData.json')}
                 cardStyle={{
                   width: width - 48,

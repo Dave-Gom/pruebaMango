@@ -27,7 +27,7 @@ export interface PorCategoriaProps {
   showInfo: (articulo: Article) => void;
 }
 
-const PorCategoria = ({ refreshing, setRefreshing }: PorCategoriaProps) => {
+const PorCategoria = ({ refreshing, setRefreshing, showInfo }: PorCategoriaProps) => {
   const [selectedCategorie, setSelectedCategorie] = useState<CategoriesEnum>(CategoriesEnum.BUSINESS);
   const { loadData, error, loading, articles } = useNewsApi(() => setRefreshing(false));
 
@@ -73,7 +73,9 @@ const PorCategoria = ({ refreshing, setRefreshing }: PorCategoriaProps) => {
           <NewsCard
             titulo={item.title}
             banner={item.urlToImage}
-            onPress={() => {}}
+            onPress={() => {
+              showInfo(item);
+            }}
             description={item.description}
             cardStyle={{ height: 200 }}
           />

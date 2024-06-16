@@ -1,13 +1,21 @@
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp, NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useState } from 'react';
 import { RefreshControl, ScrollView, View } from 'react-native';
 import { useTheme } from 'react-native-paper';
 import PrimaryBackground from '../components/PrimaryBackground';
+import { AppParamList, HomeRouterList } from '../types/interfaces/AppRouter';
+import { Article } from '../types/responses/newsResponse';
 import LatesNews from '../widgets/noticias/LatestNews';
 import PorCategoria from '../widgets/noticias/PorCategoria';
 
-const Home = () => {
+const Home = ({}: NativeStackScreenProps<HomeRouterList, 'Home'>) => {
+  const { navigate } = useNavigation<NativeStackNavigationProp<AppParamList>>();
+
   const { colors } = useTheme();
   const [refreshing, setRefreshing] = useState(false);
+
+  const showNoticia = (articulo: Article) => navigate('NoticiaCompleta', { articulo });
 
   return (
     <PrimaryBackground primaryColor={colors.background}>
@@ -25,18 +33,21 @@ const Home = () => {
           />
         }
       >
-        <View style={{ paddingVertical: 20 }}>
+        <View style={{ paddingVertical: 23 }}>
           <LatesNews
             title="General"
             showMore={() => {}}
             setRefreshing={setRefreshing}
             refreshing={refreshing}
-            showInfo={() => {}}
+            showInfo={showNoticia}
           />
         </View>
-        <View>
-          <PorCategoria />
-        </View>
+        <PorCategoria
+          refreshing={refreshing}
+          setRefreshing={setRefreshing}
+          showInfo={showNoticia}
+          showMore={() => {}}
+        />
       </ScrollView>
     </PrimaryBackground>
   );

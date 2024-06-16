@@ -1,4 +1,4 @@
 export const appConfig = {
   baseUrl: 'https://newsapi.org/v2/',
-  apiKey: '1f376b7d02104fa59535ca2bad822f5d',
+  apiKey: 'ee0be8da66cc48d4ac11185dd13c4e9e',
 };
