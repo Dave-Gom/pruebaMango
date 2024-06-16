@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
   },
   titleStyles: {
     fontFamily: PoppinsEnum.BOLD,
-    fontWeight: '700',
+    fontWeight: '600',
     fontSize: 20,
     marginBottom: 10,
     marginHorizontal: 24,
