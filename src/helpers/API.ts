@@ -1,10 +1,6 @@
 import axios from 'axios';
-import {appConfig} from '../config/config';
-import {
-  interceptorResponse,
-  onFulfilledInterceptor,
-  requestInteceptor,
-} from './InterceptorFunctions';
+import { appConfig } from '../config/config';
+import { interceptorResponse, onFulfilledInterceptor, requestInteceptor } from './InterceptorFunctions';
 
 const ApiAuth = axios.create({
   baseURL: appConfig.baseUrl,
@@ -26,4 +22,4 @@ const ApiPublic = axios.create({
   },
 });
 
-export {ApiAuth, ApiPublic};
+export { ApiAuth, ApiPublic };

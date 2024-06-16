@@ -1,13 +1,43 @@
-import React from 'react';
-import {Text, useTheme} from 'react-native-paper';
+import React, { useState } from 'react';
+import { RefreshControl, ScrollView, View } from 'react-native';
+import { useTheme } from 'react-native-paper';
 import PrimaryBackground from '../components/PrimaryBackground';
-import {PoppinsEnum} from '../types/enums/fonts/PoppinsEnum';
+import LatesNews from '../widgets/noticias/LatestNews';
+import PorCategoria from '../widgets/noticias/PorCategoria';
 
 const Home = () => {
-  const {colors} = useTheme();
+  const { colors } = useTheme();
+  const [refreshing, setRefreshing] = useState(false);
+
   return (
     <PrimaryBackground primaryColor={colors.background}>
-      <Text style={{fontFamily: PoppinsEnum.REGULAR}}>Hola</Text>
+      <ScrollView
+        showsHorizontalScrollIndicator={false}
+        showsVerticalScrollIndicator={false}
+        refreshControl={
+          <RefreshControl
+            title="Actualizar"
+            refreshing={refreshing}
+            tintColor={'white'}
+            titleColor={'white'}
+            style={{ zIndex: 90, elevation: 90 }}
+            onRefresh={() => setRefreshing(true)}
+          />
+        }
+      >
+        <View style={{ paddingVertical: 20 }}>
+          <LatesNews
+            title="General"
+            showMore={() => {}}
+            setRefreshing={setRefreshing}
+            refreshing={refreshing}
+            showInfo={() => {}}
+          />
+        </View>
+        <View>
+          <PorCategoria />
+        </View>
+      </ScrollView>
     </PrimaryBackground>
   );
 };
