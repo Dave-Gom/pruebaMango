@@ -7,4 +7,5 @@ export type AppParamList = {
 
 export type HomeRouterList = {
   Home: undefined;
+  Search: undefined;
 };

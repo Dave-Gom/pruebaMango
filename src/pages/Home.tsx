@@ -11,7 +11,6 @@ import PorCategoria from '../widgets/noticias/PorCategoria';
 
 const Home = ({}: NativeStackScreenProps<HomeRouterList, 'Home'>) => {
   const { navigate } = useNavigation<NativeStackNavigationProp<AppParamList>>();
-
   const { colors } = useTheme();
   const [refreshing, setRefreshing] = useState(false);
 

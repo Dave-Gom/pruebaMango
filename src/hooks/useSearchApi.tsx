@@ -3,20 +3,16 @@ import { ApiAuth } from '../helpers/API';
 import { CategoriesEnum } from '../types/enums/noticias/noticiasParams';
 import { Article, TopHeadlinesResponse } from '../types/responses/newsResponse';
 
-const useNewsApi = (refreshing = () => {}) => {
+const useSearchApi = (refreshing = () => {}) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [articles, setArticles] = useState<Article[]>([]);
 
-  const loadData = async (category: CategoriesEnum = CategoriesEnum.GENERAL) => {
+  const loadData = async (query: string, category: CategoriesEnum = CategoriesEnum.GENERAL) => {
     try {
       setLoading(true);
-      const url = `/top-headlines?country=us`;
-      const response = await ApiAuth.get<TopHeadlinesResponse>(url, {
-        params: {
-          category,
-        },
-      });
+      const url = `/everything?q=${query}`;
+      const response = await ApiAuth.get<TopHeadlinesResponse>(url);
 
       if (response) {
         if (response && response.status === 200) {
@@ -35,7 +31,7 @@ const useNewsApi = (refreshing = () => {}) => {
     }
   };
 
-  return { error, loading, loadData, articles };
+  return { error, loading, loadData, articles, setArticles };
 };
 
-export default useNewsApi;
+export default useSearchApi;

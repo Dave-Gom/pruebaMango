@@ -67,7 +67,7 @@ const PorCategoria = ({ refreshing, setRefreshing, showInfo }: PorCategoriaProps
       />
       <FlatList
         scrollEnabled={false}
-        data={articles}
+        data={articles.slice(0, 10)}
         style={{ paddingHorizontal: 24, paddingVertical: 10 }}
         renderItem={({ item, index }) => (
           <NewsCard
@@ -82,7 +82,7 @@ const PorCategoria = ({ refreshing, setRefreshing, showInfo }: PorCategoriaProps
         )}
         ListEmptyComponent={() => (
           <ErrorCard
-            message="No hay torneos cercanos disponibles"
+            message="No se ha podido realizar la carga"
             lottieSource={require('../../../assets/lotties/noData.json')}
             cardStyle={{ borderRadius: 20 }}
           />
