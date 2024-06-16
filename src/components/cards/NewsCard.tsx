@@ -15,8 +15,6 @@ export interface NewsCardProps {
 const NewsCard = ({ onPress, titulo, banner, cardStyle, description }: NewsCardProps) => {
   const { colors } = useTheme();
 
-  console.log(description?.length, description);
-
   return (
     <TouchableOpacity
       onPress={onPress}
@@ -35,7 +33,7 @@ const NewsCard = ({ onPress, titulo, banner, cardStyle, description }: NewsCardP
       >
         <View style={{ flex: 1, backgroundColor: '#000000ab', padding: 20, justifyContent: 'space-around' }}>
           <Text style={{ fontFamily: PoppinsEnum.BOLD, fontSize: 18, fontWeight: '600', color: colors.background }}>
-            {titulo && titulo.length > 100 ? titulo.substring(0, 80).trim() + '...' : titulo}
+            {titulo && titulo.length > 50 ? titulo.substring(0, 80).trim() + '...' : titulo}
           </Text>
           <Text style={{ fontFamily: PoppinsEnum.REGULAR, fontSize: 14, fontWeight: '400', color: colors.background }}>
             {description && description.length > 130 ? description.substring(0, 80).trim() + '...' : description}

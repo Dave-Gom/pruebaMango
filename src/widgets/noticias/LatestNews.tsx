@@ -10,7 +10,7 @@ import useNewsApi from '../../hooks/useNewsApi';
 import { PoppinsEnum } from '../../types/enums/fonts/PoppinsEnum';
 import { Article } from '../../types/responses/newsResponse';
 
-export interface TorneosEnCursoWidgetProps {
+export interface LatestProps {
   title: string;
   showMore: () => void;
   refreshing: boolean;
@@ -18,9 +18,9 @@ export interface TorneosEnCursoWidgetProps {
   showInfo: (articulo: Article) => void;
 }
 
-const LatesNews = ({ title, showMore, refreshing, setRefreshing, showInfo }: TorneosEnCursoWidgetProps) => {
+const LatesNews = ({ title, showMore, refreshing, setRefreshing, showInfo }: LatestProps) => {
   const { colors } = useTheme();
-  const { loadData, error, loading, articles } = useNewsApi();
+  const { loadData, error, loading, articles } = useNewsApi(() => setRefreshing(false));
   const { width } = useWindowDimensions();
 
   useEffect(() => {
@@ -31,8 +31,6 @@ const LatesNews = ({ title, showMore, refreshing, setRefreshing, showInfo }: Tor
   useEffect(() => {
     if (refreshing) {
       loadData();
-    } else {
-      console.log(articles.length);
     }
   }, [refreshing]);
 

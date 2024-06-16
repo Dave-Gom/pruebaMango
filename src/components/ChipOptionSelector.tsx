@@ -1,12 +1,12 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { ScrollView } from 'react-native';
 import { Chip, useTheme } from 'react-native-paper';
 
 export interface ChipOptionSelectorProps<T extends Object, K extends keyof T> {
   data: Array<T>;
   keyExtractor: K;
-  selectedValue: T;
-  setSelectedValue: (value: T) => void;
+  selectedValue: T[K];
+  setSelectedValue: (value: T[K]) => void;
   keyTitle: K;
   showSelectedCheck?: boolean;
 }
@@ -21,12 +21,6 @@ const ChipOptionSelector = <T extends Object, K extends keyof T>({
 }: ChipOptionSelectorProps<T, K>) => {
   const { colors } = useTheme();
 
-  useEffect(() => {
-    return () => {
-      setSelectedValue(data[0]);
-    };
-  }, []);
-
   let optiones = useMemo(() => {
     let nuevoContenedor = [...data];
     nuevoContenedor.sort((a: T, b: T) => {
@@ -35,7 +29,6 @@ const ChipOptionSelector = <T extends Object, K extends keyof T>({
       } else if (a[keyTitle] < b[keyTitle]) {
         return -1;
       }
-
       return 0;
     });
 
@@ -43,7 +36,7 @@ const ChipOptionSelector = <T extends Object, K extends keyof T>({
   }, [data]);
 
   const handlePressItem = (item: T) => {
-    setSelectedValue(item);
+    setSelectedValue(item[keyExtractor]);
   };
   return (
     <ScrollView
@@ -53,8 +46,7 @@ const ChipOptionSelector = <T extends Object, K extends keyof T>({
       showsVerticalScrollIndicator={false}
     >
       {optiones.map(item => {
-        let isSelected = selectedValue[keyExtractor] === item[keyExtractor];
-
+        let isSelected = selectedValue === item[keyExtractor];
         return (
           <Chip
             key={`${item[keyExtractor]}`}

@@ -3,7 +3,7 @@ import { ApiAuth } from '../helpers/API';
 import { CategoriesEnum } from '../types/enums/noticias/noticiasParams';
 import { Article, TopHeadlinesResponse } from '../types/responses/newsResponse';
 
-const useNewsApi = () => {
+const useNewsApi = (refreshing = () => {}) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [articles, setArticles] = useState<Article[]>([]);
@@ -34,8 +34,10 @@ const useNewsApi = () => {
       }
 
       setLoading(false);
+      refreshing();
     } catch (error) {
       setError(true);
+      refreshing();
     }
   };
 
