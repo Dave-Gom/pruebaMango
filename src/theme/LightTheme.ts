@@ -9,7 +9,7 @@ const LightTheme: MD3Theme = {
     secondary: '#0080FF',
     background: '#F5F5F5',
     tertiary: '#FFE600',
-    secondaryContainer: '#D9D9D9',
+    secondaryContainer: '#C5C5C5',
   },
   fonts: configureFonts({
     config: {
